@@ -17,7 +17,7 @@ module.exports = configure(function (/* ctx */) {
 
 
     // https://v2.quasar.dev/quasar-cli/prefetch-feature
-    // preFetch: true,
+    preFetch: true,
 
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
@@ -84,7 +84,7 @@ module.exports = configure(function (/* ctx */) {
       open: true, // opens browser window automatically
       proxy: {
         '/api': {
-          target: 'http://localhost:8080',
+          target: 'http://localhost:3000',
           changeOrigin: true,
           secure: false,
         }

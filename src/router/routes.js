@@ -14,7 +14,9 @@ const Messages  = () => import('pages/dashboard/Messages.vue')
 const Boluses   = () => import('pages/dashboard/Bolus.vue')
 const Login     = () => import('pages/auth/Login.vue')
 const Register  = () => import('pages/auth/Register.vue')
+const Key       = () => import('pages/auth/Key.vue')
 const NotFound  = () => import('pages/ErrorNotFound.vue')
+
 
 
 const routes = [
@@ -39,6 +41,7 @@ const routes = [
     children: [
       {path: 'login', component: Login, props: true, meta: {requiresUnAuth: true}},
       {path: 'register', component: Register, props: true, meta: {requiresUnAuth: true}},
+      {path: 'key', component: Key, props: true, meta: {requiresUnAuth: true}},
     ]
   },
   // Always leave this as last one,

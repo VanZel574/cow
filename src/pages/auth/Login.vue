@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex justify-center items-center q-pa-md">
-      <p class="text-negative text-center" v-if="showError">{{ errorText }}</p>
       <q-card style="width: 100%; max-width: 400px">
+        <p class="text-negative text-center q-pa-md" v-if="showError">{{ errorText }}</p>
         <q-card-section>
           <q-form @submit="onSubmit" class="q-gutter-md">
             <q-input
@@ -30,7 +30,7 @@
 
             <div>
               <q-btn label="Войти" type="submit" color="primary" :loading="loading" />
-              <q-btn label="Регистрация" color="primary" flat class="q-ml-sm" to="/auth/register" />
+              <q-btn label="Регистрация" color="primary" flat class="q-ml-sm" to="/auth/registerUser" />
             </div>
 
           </q-form>
@@ -42,7 +42,10 @@
 <script setup>
 import { ref } from "vue";
 import { $api } from "boot/api";
+import { useRouter } from "vue-router";
 
+
+const router = useRouter()
 
 const isPwd = ref(true)
 const name = ref(null)
@@ -56,27 +59,34 @@ const errorText = ref('Ошибка')
 const onSubmit = async () => {
   try {
     loading.value = true
-    await $api.login({
+    const response = await $api.login({
       login: name.value,
       password: password.value
     })
     loading.value = false
-  } catch (e) {
-    loading.value = false
-    showError.value = true
-    switch (e.status) {
+
+    switch (response.status) {
+      case 200:
+        router.push({path: '/'})
+        break
       case 400:
+        showError.value = true
         errorText.value = 'неверный формат запроса'
         break
       case 401:
+        showError.value = true
         errorText.value = 'неверная пара логин/пароль'
         break
       case 500:
+        showError.value = true
         errorText.value = 'внутренняя ошибка сервера'
         break
       default:
+        showError.value = true
         errorText.value = 'ошибка'
     }
+  } catch (e) {
+    loading.value = false
   }
 }
 

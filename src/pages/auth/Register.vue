@@ -1,7 +1,8 @@
 <template>
   <q-page class="flex justify-center items-center q-pa-md">
-    <p class="text-negative text-center" v-if="showError" style="width: 100%">{{ errorText }}</p>
+<!--    <p class="text-negative text-center" v-if="showError" style="width: 100%">{{ errorText }}</p>-->
     <q-card style="width: 100%; max-width: 400px">
+      <p class="text-negative text-center q-pa-md" v-if="showError">{{ errorText }}</p>
       <q-card-section>
         <q-form @submit="onSubmit" class="q-gutter-sm">
           <q-input
@@ -73,9 +74,14 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from "vue"
+import { ref, onBeforeMount } from "vue";
 import { $api } from "boot/api";
+import { useQuasar } from 'quasar';
+import { useRouter } from 'vue-router';
 
+
+const router = useRouter()
+const $q = useQuasar()
 
 const isPwd = ref(true)
 const isPwdRepeat = ref(true)
@@ -92,7 +98,8 @@ const showError = ref(false)
 const permissionModel = ref(null)
 const permissionTypes = ref([])
 
-// register
+
+// registerUser
 const onSubmit = async () => {
   try {
     if (password.value !== passwordRepeat.value) {
@@ -101,7 +108,7 @@ const onSubmit = async () => {
       return
     }
     loading.value = true
-    const response = await $api.register({
+    const response = await $api.registerUser({
       login: name.value,
       password: password.value,
       key: registerKey.value,
@@ -109,10 +116,15 @@ const onSubmit = async () => {
       permission: permissionModel.value
     })
     loading.value = false
-    console.log(response)
+
     switch (response.status) {
       case 200:
         showError.value = false
+        $q.notify({
+          message: 'Пользователь успешно зарегистрирован',
+          color: 'positive'
+        })
+        router.push({path: '/'})
         break
       case 400:
         errorText.value = 'Не верный формат запроса'
@@ -123,7 +135,7 @@ const onSubmit = async () => {
         showError.value = true
         break
       case 409:
-        errorText.value = 'Error! 409'
+        errorText.value = response.data.error
         showError.value = true
         break
       default:
@@ -132,6 +144,7 @@ const onSubmit = async () => {
     }
   } catch (e) {
     loading.value = false
+  }
 }
 
 // get permission types

@@ -46,7 +46,7 @@ class Api {
     } catch (e) {
       // throw e
       return {
-        data: null,
+        data: e.response.data,
         status: e.response.status,
         message: e.message,
         error: true
@@ -81,14 +81,26 @@ class Api {
       throw e
     }
   }
-  register = async (payload) => {
+  registerUser = async (payload) => {
     try {
       const fetchParams = {
         endpoint: '/user/register',
         method: 'POST',
         data: payload
       }
-      console.log(fetchParams)
+      return await this.fetchData(fetchParams)
+    } catch (e) {
+      console.log(e)
+      throw e
+    }
+  }
+  registerKey = async (payload) => {
+    try {
+      const fetchParams = {
+        endpoint: '/user/key',
+        method: 'POST',
+        data: payload
+      }
       return await this.fetchData(fetchParams)
     } catch (e) {
       console.log(e)
