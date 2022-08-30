@@ -78,10 +78,13 @@ import { ref, onBeforeMount } from "vue";
 import { $api } from "boot/api";
 import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
+import { useAuth } from "stores/auth";
 
 
 const router = useRouter()
 const $q = useQuasar()
+const authStore = useAuth()
+
 
 const isPwd = ref(true)
 const isPwdRepeat = ref(true)
@@ -108,7 +111,7 @@ const onSubmit = async () => {
       return
     }
     loading.value = true
-    const response = await $api.registerUser({
+    const response = await authStore.register({
       login: name.value,
       password: password.value,
       key: registerKey.value,

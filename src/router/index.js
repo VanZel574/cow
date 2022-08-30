@@ -1,6 +1,7 @@
 import { route } from 'quasar/wrappers'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
+import { useAuth } from "stores/auth";
 
 /*
  * If not building with SSR mode, you can
@@ -24,6 +25,19 @@ export default route(function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE)
+  })
+
+  Router.beforeEach(function (to, from, ) {
+    // check auth
+    // const auth = useLocalStorage('auth', {isAuth: false, token: null, userId: null})
+    const auth = useAuth()
+    if (to.meta.requiresAuth && !auth.isAuth) {
+      // next('/auth/login')
+      return {path: '/auth/login'}
+    } else if (to.meta.requiresUnAuth && auth.isAuth) {
+      return {path: '/'}
+      // next('/dashboard')
+    }
   })
 
   return Router

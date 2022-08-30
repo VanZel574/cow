@@ -2,10 +2,10 @@
   <router-view />
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup>
+import { useAuth } from "stores/auth";
 
-export default defineComponent({
-  name: 'App'
-})
+// check auth
+const authStore = useAuth()
+authStore.checkAuth()
 </script>

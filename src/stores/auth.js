@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
-import {useFarm} from './farm';
-import {useAnimals} from "./animals";
-import {useBoluses} from "./boluses";
+import { useFarm } from './farm';
+import { useAnimals } from "./animals";
+import { useBoluses } from "./boluses";
 
 
 export const useAuth = defineStore('auth', {
@@ -15,6 +15,14 @@ export const useAuth = defineStore('auth', {
   },
 
   actions: {
+    authAction (response) {
+      if (response.status === 200) {
+        this.checkAuth()
+        // set to local storage
+        localStorage.setItem('auth', JSON.stringify(this.$state))
+        // this.router.push({path: '/'})
+      }
+    },
     /*-----------------------
     * login user
     *----------------------*/
@@ -22,12 +30,22 @@ export const useAuth = defineStore('auth', {
       try {
         const response = await this.api.login(payload)
 
-        if (response.status === 200) {
-          this.checkAuth()
-          // set to local storage
-          localStorage.setItem('auth', JSON.stringify(this.$state))
-          this.router.push({path: '/dashboard/devices'})
-        }
+        this.authAction(response)
+
+        return response
+      } catch (e) {
+        throw e
+      }
+    },
+
+    /*--------------------
+    * register user
+    *-------------------*/
+    async register (payload) {
+      try {
+        const response = await this.api.registerUser(payload)
+
+        this.authAction(response)
 
         return response
       } catch (e) {

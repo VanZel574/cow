@@ -30,7 +30,7 @@
 
             <div>
               <q-btn label="Войти" type="submit" color="primary" :loading="loading" />
-              <q-btn label="Регистрация" color="primary" flat class="q-ml-sm" to="/auth/registerUser" />
+              <q-btn label="Регистрация" color="primary" flat class="q-ml-sm" to="/auth/register" />
             </div>
 
           </q-form>
@@ -41,11 +41,12 @@
 
 <script setup>
 import { ref } from "vue";
-import { $api } from "boot/api";
 import { useRouter } from "vue-router";
+import { useAuth } from "stores/auth";
 
 
 const router = useRouter()
+const authStore = useAuth()
 
 const isPwd = ref(true)
 const name = ref(null)
@@ -59,7 +60,7 @@ const errorText = ref('Ошибка')
 const onSubmit = async () => {
   try {
     loading.value = true
-    const response = await $api.login({
+    const response = await authStore.login({
       login: name.value,
       password: password.value
     })
