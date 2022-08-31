@@ -3,19 +3,21 @@
 *--------------------------------*/
 const Dashboard = () => import('layouts/Dashboard.vue')
 const Auth      = () => import('layouts/Auth.vue')
+const User      = () => import('layouts/User.vue')
 
 /*---------------------------------
 * Pages
 *--------------------------------*/
-const Devices   = () => import('pages/dashboard/Devices.vue')
-const Animals   = () => import('pages/dashboard/Animals.vue')
-const Groups    = () => import('pages/dashboard/Groups.vue')
-const Messages  = () => import('pages/dashboard/Messages.vue')
-const Boluses   = () => import('pages/dashboard/Bolus.vue')
-const Login     = () => import('pages/auth/Login.vue')
-const Register  = () => import('pages/auth/Register.vue')
-const Key       = () => import('pages/auth/Key.vue')
-const NotFound  = () => import('pages/ErrorNotFound.vue')
+const Devices      = () => import('pages/dashboard/Devices.vue')
+const Animals      = () => import('pages/dashboard/Animals.vue')
+const Groups       = () => import('pages/dashboard/Groups.vue')
+const Messages     = () => import('pages/dashboard/Messages.vue')
+const Boluses      = () => import('pages/dashboard/Bolus.vue')
+const Confirmation = () => import('pages/user/Confirmation.vue')
+const Login        = () => import('pages/auth/Login.vue')
+const Register     = () => import('pages/auth/Register.vue')
+const Key          = () => import('pages/auth/Key.vue')
+const NotFound     = () => import('pages/ErrorNotFound.vue')
 
 
 
@@ -32,6 +34,14 @@ const routes = [
       {path: 'groups', component: Groups, props: true, meta: {requiresAuth: true}},
       {path: 'messages', component: Messages, props: true, meta: {requiresAuth: true}},
       {path: 'boluses', component: Boluses, props: true, meta: {requiresAuth: true}},
+    ]
+  },
+  {
+    path: '/user',
+    component: User,
+    meta: {requiresAuth: true},
+    children: [
+      {path: 'confirm', component: Confirmation, meta: {requiresAuth: true}}
     ]
   },
   {

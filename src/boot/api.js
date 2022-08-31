@@ -94,6 +94,19 @@ class Api {
       throw e
     }
   }
+  confirmationUser = async (payload) => {
+   try {
+     const fetchParams = {
+       endpoint: '/user/confirm',
+       method: 'POST',
+       data: payload
+     }
+     return await this.fetchData(fetchParams)
+   } catch (e) {
+     console.log(e)
+     throw e
+   }
+  }
   registerKey = async (payload) => {
     try {
       const fetchParams = {

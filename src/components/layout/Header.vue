@@ -36,6 +36,12 @@
               <q-spinner color="primary" :thickness="2" v-else />
             </q-item-section>
           </q-item>
+
+          <q-item to="/user/confirm" exact>
+            <q-item-section>
+              <q-item-label>Личный кабинет</q-item-label>
+            </q-item-section>
+          </q-item>
         </q-list>
       </q-btn-dropdown>
 
