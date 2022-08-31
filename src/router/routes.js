@@ -2,22 +2,24 @@
 * Layouts
 *--------------------------------*/
 const Dashboard = () => import('layouts/Dashboard.vue')
-const Auth      = () => import('layouts/Auth.vue')
-const User      = () => import('layouts/User.vue')
+const Default   = () => import('layouts/Default.vue')
+// const Auth      = () => import('layouts/Auth.vue')
+// const User      = () => import('layouts/User.vue')
 
 /*---------------------------------
 * Pages
 *--------------------------------*/
-const Devices      = () => import('pages/dashboard/Devices.vue')
-const Animals      = () => import('pages/dashboard/Animals.vue')
-const Groups       = () => import('pages/dashboard/Groups.vue')
-const Messages     = () => import('pages/dashboard/Messages.vue')
-const Boluses      = () => import('pages/dashboard/Bolus.vue')
-const Confirmation = () => import('pages/user/Confirmation.vue')
-const Login        = () => import('pages/auth/Login.vue')
-const Register     = () => import('pages/auth/Register.vue')
-const Key          = () => import('pages/auth/Key.vue')
-const NotFound     = () => import('pages/ErrorNotFound.vue')
+const Devices       = () => import('pages/dashboard/Devices.vue')
+const Animals       = () => import('pages/dashboard/Animals.vue')
+const Groups        = () => import('pages/dashboard/Groups.vue')
+const Messages      = () => import('pages/dashboard/Messages.vue')
+const Boluses       = () => import('pages/dashboard/Bolus.vue')
+const Confirmation  = () => import('pages/user/Confirmation.vue')
+const Login         = () => import('pages/auth/Login.vue')
+const Register      = () => import('pages/auth/Register.vue')
+const Key           = () => import('pages/auth/Key.vue')
+const Organisations = () => import('pages/admin/Organisations.vue')
+const NotFound      = () => import('pages/ErrorNotFound.vue')
 
 
 
@@ -29,29 +31,38 @@ const routes = [
     meta: {requiresAuth: true},
     // redirect: '/dashboard/devices',
     children: [
-      {path: '', component: Devices, props: true, meta: {requiresAuth: true}},
-      {path: 'animals', component: Animals, props: true, meta: {requiresAuth: true}},
-      {path: 'groups', component: Groups, props: true, meta: {requiresAuth: true}},
-      {path: 'messages', component: Messages, props: true, meta: {requiresAuth: true}},
-      {path: 'boluses', component: Boluses, props: true, meta: {requiresAuth: true}},
+      {path: '', component: Devices, props: true},
+      {path: 'animals', component: Animals, props: true},
+      {path: 'groups', component: Groups, props: true},
+      {path: 'messages', component: Messages, props: true},
+      {path: 'boluses', component: Boluses, props: true},
     ]
   },
   {
     path: '/user',
-    component: User,
+    component: Default,
     meta: {requiresAuth: true},
     children: [
-      {path: 'confirm', component: Confirmation, meta: {requiresAuth: true}}
+      {path: 'confirm', component: Confirmation}
     ]
   },
   {
     path: '/auth',
-    component: Auth,
-    meta: {requiresUnAuth: true},
+    component: Default,
+    meta: {requiresUnAuth: false},
     children: [
-      {path: 'login', component: Login, props: true, meta: {requiresUnAuth: true}},
-      {path: 'register', component: Register, props: true, meta: {requiresUnAuth: true}},
-      {path: 'key', component: Key, props: true, meta: {requiresUnAuth: true}},
+      {path: 'login', component: Login, props: {routerLink: '/'}},
+      {path: 'register', component: Register},
+      {path: 'key', component: Key},
+    ]
+  },
+  {
+    path: '/admin',
+    component: Default,
+    meta: {requiresAdmin: true},
+    children: [
+      {path: '', component: Login, props: {routerLink: '/admin/organisations'}},
+      {path: 'organisations', component: Organisations},
     ]
   },
   // Always leave this as last one,

@@ -45,6 +45,13 @@ import { useRouter } from "vue-router";
 import { useAuth } from "stores/auth";
 
 
+const props = defineProps({
+  routerLink: {
+    type: String,
+    default: '/'
+  }
+})
+
 const router = useRouter()
 const authStore = useAuth()
 
@@ -68,7 +75,8 @@ const onSubmit = async () => {
 
     switch (response.status) {
       case 200:
-        router.push({path: '/'})
+        console.log(props.routerLink)
+        router.push({path: props.routerLink})
         break
       case 400:
         showError.value = true
