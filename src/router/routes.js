@@ -49,7 +49,7 @@ const routes = [
   {
     path: '/auth',
     component: Default,
-    meta: {requiresUnAuth: false},
+    meta: {requiresUnAuth: true},
     children: [
       {path: 'login', component: Login, props: {routerLink: '/'}},
       {path: 'register', component: Register},
@@ -62,7 +62,7 @@ const routes = [
     meta: {requiresAdmin: true},
     children: [
       {path: '', component: Login, props: {routerLink: '/admin/organisations'}},
-      {path: 'organisations', component: Organisations},
+      {path: 'organisations', component: Organisations, meta: {requiresAuth: true}},
     ]
   },
   // Always leave this as last one,

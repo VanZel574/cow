@@ -30,16 +30,16 @@
 
       <q-btn-dropdown stretch flat label="аккаунт">
         <q-list>
+          <q-item to="/user/confirm" exact>
+            <q-item-section>
+              <q-item-label>Личный кабинет</q-item-label>
+            </q-item-section>
+          </q-item>
+
           <q-item clickable @click="logout">
             <q-item-section>
               <q-item-label v-if="!loadingLogout">Выйти</q-item-label>
               <q-spinner color="primary" :thickness="2" v-else />
-            </q-item-section>
-          </q-item>
-
-          <q-item to="/user/confirm" exact>
-            <q-item-section>
-              <q-item-label>Личный кабинет</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>

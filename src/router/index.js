@@ -28,16 +28,14 @@ export default route(function (/* { store, ssrContext } */) {
   })
 
   Router.beforeEach(function (to, from, ) {
-    // check auth
-    // const auth = useLocalStorage('auth', {isAuth: false, token: null, userId: null})
     const auth = useAuth()
+
     if (to.meta.requiresAuth && !auth.isAuth) {
-      // next('/auth/login')
       return {path: '/auth/login'}
     } else if (to.meta.requiresUnAuth && auth.isAuth) {
       return {path: '/'}
-      // next('/dashboard')
     }
+
   })
 
   return Router
