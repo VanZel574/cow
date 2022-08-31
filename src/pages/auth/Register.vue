@@ -66,7 +66,12 @@
           >
           </q-input>
           <q-select square outlined v-model="permissionModel" :options="permissionTypes" label="Выберите роль" />
-          <q-btn label="Зарегистрироваться" type="submit" color="primary" :loading="loading" class="q-mt-xl" />
+
+          <div class="q-mt-lg">
+            <q-btn label="Зарегистрироваться" type="submit" color="primary" :loading="loading" />
+            <q-btn label="Назад" color="primary" flat class="q-ml-sm" to="/auth/login" />
+          </div>
+
         </q-form>
       </q-card-section>
     </q-card>
