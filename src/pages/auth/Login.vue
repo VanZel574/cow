@@ -30,7 +30,7 @@
 
             <div>
               <q-btn label="Войти" type="submit" color="primary" :loading="loading" />
-              <q-btn label="Регистрация" color="primary" flat class="q-ml-sm" to="/auth/register" />
+              <q-btn label="Регистрация" color="primary" flat class="q-ml-sm" to="/auth/register" v-if="!admin" />
             </div>
 
           </q-form>
@@ -49,6 +49,10 @@ const props = defineProps({
   routerLink: {
     type: String,
     default: '/'
+  },
+  admin: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -75,7 +79,6 @@ const onSubmit = async () => {
 
     switch (response.status) {
       case 200:
-        console.log(props.routerLink)
         router.push({path: props.routerLink})
         break
       case 400:

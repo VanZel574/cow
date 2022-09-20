@@ -61,7 +61,7 @@ const routes = [
     component: Default,
     meta: {requiresAdmin: true},
     children: [
-      {path: '', component: Login, props: {routerLink: '/admin/organisations'}},
+      {path: '', component: Login, props: {routerLink: '/admin/organisations', admin: true}},
       {path: 'organisations', component: Organisations, meta: {requiresAuth: true}},
     ]
   },
