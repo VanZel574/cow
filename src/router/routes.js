@@ -17,8 +17,7 @@ const Boluses       = () => import('pages/dashboard/Bolus.vue')
 const Confirmation  = () => import('pages/user/Confirmation.vue')
 const Login         = () => import('pages/auth/Login.vue')
 const Register      = () => import('pages/auth/Register.vue')
-const Key           = () => import('pages/auth/Key.vue')
-const Organisations = () => import('pages/admin/Organisations.vue')
+const Organisations = () => import('pages/admin/index.vue')
 const NotFound      = () => import('pages/ErrorNotFound.vue')
 
 
@@ -53,7 +52,6 @@ const routes = [
     children: [
       {path: 'login', component: Login, props: {routerLink: '/'}},
       {path: 'register', component: Register},
-      {path: 'key', component: Key},
     ]
   },
   {

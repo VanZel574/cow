@@ -1,48 +1,32 @@
 <template>
-  <q-page class="flex justify-center items-center q-pa-md">
-    <q-card style="width: 100%; max-width: 400px">
-      <p class="text-negative text-center q-pa-md" v-if="showError">{{ errorText }}</p>
-      <q-card-section>
-        <q-form @submit="onSubmit" class="q-gutter-md">
-          <q-input
-            v-model.number="inn"
-            type="number"
-            filled
-            label="INN"
-            lazy-rules
-            :rules="[ val => !!val || 'Введите INN']"
-          />
-
-          <q-input
-            v-model.number="farms"
-            type="number"
-            filled
-            label="Количество ферм"
-            lazy-rules
-            :rules="[
+  <q-form @submit="onSubmit" class="q-gutter-md" style="min-width: 400px">
+    <q-input
+      v-model.number="farms"
+      type="number"
+      filled
+      label="Количество ферм"
+      lazy-rules
+      :rules="[
               val => !!val || 'Поле не может быть пустым',
               val => val >= 0 || 'Количество ферм должно быть больше 0'
             ]"
-          />
+    />
 
-          <q-input
-            v-model.number="users"
-            type="number"
-            filled
-            label="Количество пользователей"
-            lazy-rules
-            :rules="[
+    <q-input
+      v-model.number="users"
+      type="number"
+      filled
+      label="Количество пользователей"
+      lazy-rules
+      :rules="[
               val => !!val || 'Поле не может быть пустым',
               val => val >= 0 || 'Количество ферм должно быть больше 0'
             ]"
-          />
+    />
 
-          <q-btn label="Зарегистрировать ключ" type="submit" color="primary" :loading="loading" />
+    <q-btn label="Зарегистрировать ключ" type="submit" color="primary" :loading="loading"/>
 
-        </q-form>
-      </q-card-section>
-    </q-card>
-  </q-page>
+  </q-form>
 </template>
 
 <script setup>
@@ -50,6 +34,13 @@ import { ref } from "vue";
 import { $api } from "boot/api";
 import { useQuasar } from 'quasar';
 
+
+const props = defineProps({
+  organisation: {
+    type: Object,
+    default: () => {}
+  }
+})
 
 const inn = ref(null)
 const farms = ref(1)
@@ -66,7 +57,7 @@ const onSubmit = async () => {
   try {
     loading.value = true
     const response = await $api.registerKey({
-      inn: inn.value,
+      inn: props.organisation.inn,
       farms: farms.value,
       users: users.value
     })
