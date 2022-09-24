@@ -2,12 +2,12 @@
   <q-table
     :columns="columns"
     :rows="rows"
-    row-key="name"
+    row-key="id"
     selection="multiple"
     v-model:selected="selected"
   >
     <template v-slot:bottom>
-      <q-btn color="negative" label="Удалить"></q-btn>
+      <q-btn color="negative" label="Удалить" @click="deleteData"></q-btn>
     </template>
 
 <!--    <template v-slot:body-cell-actions="props">-->
@@ -22,6 +22,8 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
+import { $api } from "boot/api";
+
 
 const columns = [
   {
@@ -64,18 +66,30 @@ const rows = ref([])
 
 const selected = ref([])
 
-onMounted(async () => {
+const loadData = async () => {
   try {
-    rows.value = [{
-      id: 0,
-      inn: '123',
-      user: 'user1',
-      key: 'ololo'
-    }]
+    rows.value = await $api.organisationUsers(null, 'GET')
+  } catch (e) {
+    throw e
+  }
+}
+
+onMounted( () => {
+  loadData().catch(e => console.log(e))
+})
+
+const deleteData = async () => {
+  try {
+    // delete
+    await $api.organisationUsers(selected.value, 'DELETE')
+
+    // load
+    await loadData()
   } catch (e) {
     console.log(e)
   }
-})
+}
+
 
 
 </script>

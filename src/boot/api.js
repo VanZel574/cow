@@ -136,6 +136,39 @@ class Api {
     }
   }
 
+  /*------------------------------
+  * Get organisation list
+  *-----------------------------*/
+  getOrganisationList = async () => {
+    try {
+      const fetchParams = {
+        endpoint: '',
+        method: '',
+      }
+
+      return []
+    } catch (e) {
+      throw e
+    }
+  }
+
+  /*--------------------
+  * Organisation users
+  *-------------------*/
+  organisationUsers = async (payload, method) => {
+    try {
+      const fetchParams = {
+        endpoint: '',
+        method: method,
+        data: payload
+      }
+      return []
+    } catch (e) {
+      throw e
+    }
+  }
+
+
   /*----------------------
   * Get data from farm
   *---------------------*/

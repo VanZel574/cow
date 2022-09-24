@@ -57,10 +57,14 @@ const routes = [
   {
     path: '/admin',
     component: Default,
-    meta: {requiresAdmin: true},
+    // meta: {requiresAdmin: true},
     children: [
       {path: '', component: Login, props: {routerLink: '/admin/organisations', admin: true}},
-      {path: 'organisations', component: Organisations, meta: {requiresAuth: true}},
+      {
+        path: 'organisations',
+        component: Organisations,
+        // meta: {requiresAuth: true}
+      },
     ]
   },
   // Always leave this as last one,

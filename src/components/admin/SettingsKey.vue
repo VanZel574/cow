@@ -24,7 +24,7 @@
             ]"
     />
 
-    <q-btn label="Зарегистрировать ключ" type="submit" color="primary" :loading="loading"/>
+    <q-btn label="Сохранить" type="submit" color="primary" :loading="loading"/>
 
   </q-form>
 </template>
@@ -56,7 +56,7 @@ const loading = ref(false)
 // register key
 const onSubmit = () => {
   loading.value = true
-  organisationStore.generateKey({
+  organisationStore.editKey({
     inn: props.organisation.inn,
     farms: farms.value,
     users: users.value
@@ -99,4 +99,5 @@ const onSubmit = () => {
 <style scoped>
 
 </style>
+
 
