@@ -30,13 +30,21 @@ export default route(function (/* { store, ssrContext } */) {
   Router.beforeEach(function (to, from, ) {
     const auth = useAuth()
 
-    if (to.meta.requiresAuth && !auth.isAuth) {
-      return {path: '/auth/login'}
-    } else if (to.meta.requiresUnAuth && auth.isAuth) {
-      return {path: '/'}
-    }
+    // if (to.meta.requiresAuth && !auth.isAuth) {
+    //   return {path: '/auth/login'}
+    // } else if (to.meta.requiresUnAuth && auth.isAuth) {
+    //   return {path: '/'}
+    // }
 
   })
 
   return Router
 })
+
+const adminMiddleware = (role, to) => {
+  
+}
+
+const userMiddleware = (role, to) => {
+
+}

@@ -11,6 +11,7 @@ export const useAuth = defineStore('auth', {
       isAuth: false,
       token: null,
       userId: null,
+      role: ''
     }
   },
 
@@ -96,6 +97,7 @@ export const useAuth = defineStore('auth', {
       const token = Cookies.get('cows_health')
       this.token = token
       this.isAuth = Boolean(token)
+      this.role = 'admin'
     },
 
   }
